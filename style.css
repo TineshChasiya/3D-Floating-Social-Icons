@@ -1,0 +1,147 @@
+/* 1. RESET & PREMIUM BASE THEME */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    min-height: 100vh;
+    background-color: #0d0e12; /* Deep Dark Background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+/* 2. 3D CANVAS & PERSPECTIVE */
+.social-container{
+    display: flex;
+    gap: 40px;
+    perspective: 1000px; 
+    padding: 50px;
+}
+/* 3. THE SOCIAL CARD (BASE) */
+.social-card{
+    position: relative;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    text-decoration: none;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+/* Base style for all internal layers */
+.layer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+/* Icon style setup */
+.icon-layer i{
+    font-size: 2.2rem;
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+/* 4. LAYER DEPTH SETUP (STATIC STATE) */
+
+/* In the flat state, the layers remain slightly tilted. */
+.social-card{
+    transform: rotateX(15deg) rotateY(-15deg);
+}
+/* Layer 1: Base panel */
+.layer-1{
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(5px);
+    transform: translateZ(0px);
+}
+/* Layer 2: Middle floating panel */
+.layer-2{
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transform: translateZ(10px);
+}
+/* Icon Layer: Topmost panel */
+.icon-layer{
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transform: translateZ(20px);
+}
+/* Shadow Layer: We keep this grounded against the background. */
+.shadow-layer{
+    background: rgba(0, 0, 0, 0.6);
+    filter: blur(10px);
+    transform: translateZ(-30px) translateY(10px) scale(0.9);
+    opacity: 0.8;
+}
+/* 5. MAGNETIC HOVER STATES (THE MAGIC) */
+
+/* It will levitate and spin the entire card upon hovering. */
+.social-card:hover{
+    transform: rotateX(25deg) rotateY(-25deg) translateY(-20px);
+}
+/* The Z-axis movement of the layers is multiplied on hover. */
+.social-card:hover .layer-1{
+    transform: translateZ(20px);
+}
+.social-card:hover .layer-2{
+    transform: translateZ(40px);
+}
+.social-card:hover .icon-layer{
+    transform: translateZ(60px);
+}
+/* To make the shadow look realistic: the blur will increase, and it will move further away. */
+.social-card:hover .shadow-layer{
+    transform: translateZ(-50px) translateY(40px) scale(0.7);
+    filter: blur(18px);
+    opacity: 0.4;
+}
+/* 6. BRAND COLOR SCHEMES & NEON GLOWS */
+
+/* --- Instagram Theme --- */
+.instagram:hover .icon-layer{
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    box-shadow: 0 0 30px rgba(220, 39, 67, 0.6);
+    border-color: transparent;
+}
+.instagram:hover .layer-2{
+    background: rgba(220, 39, 67, 0.15);
+    border-color: rgba(220, 39, 67, 0.3);
+}
+/* --- X / Twitter Theme --- */
+.twitter:hover .icon-layer{
+    background: #111111;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.twitter:hover .layer-2{
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+/* --- Discord Theme --- */
+.discord:hover .icon-layer{
+    background: #5865F2;
+    box-shadow: 0 0 30px rgba(88, 101, 242, 0.6);
+    border-color: transparent;
+}
+.discord:hover .layer-2{
+    background: rgba(88, 101, 242, 0.15);
+    border-color: rgba(88, 101, 242, 0.3);
+}
+/* --- Github Theme --- */
+.github:hover .icon-layer{
+    background: #24292e;
+    box-shadow: 0 0 30px rgba(110, 118, 129, 0.5);
+    border-color: rgba(110, 118, 129, 0.4);
+}
+.github:hover .layer-2{
+    background: rgba(110, 118, 129, 0.15);
+    border-color: rgba(110, 118, 129, 0.3);
+}
